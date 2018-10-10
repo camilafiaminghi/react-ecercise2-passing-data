@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ItemFavoritedMovie from './ItemFavoritedMovie';
 import logo from './logo.svg';
 import './App.css';
 
@@ -98,6 +99,18 @@ const movies = {
 };
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.favoritedMovies = {};
+    
+    Object.keys(movies).map(index => (this.favoritedMovies[movies[index].id] = []));
+    for (let index in profiles) {
+      const movieID = profiles[index].favoriteMovieID;
+      const userID  = profiles[index].userID;
+      this.favoritedMovies[movieID].push(userID);
+    }
+  }
+  
   render() {
     return (
       <div className="App">
@@ -106,6 +119,13 @@ class App extends Component {
           <h1 className="App-title">ReactND - Coding Practice</h1>
         </header>
         <h2>How Popular is Your Favorite Movie?</h2>
+        {Object.keys(this.favoritedMovies).map(movieKey => 
+        	<ItemFavoritedMovie
+                key={movieKey}
+          		title={movies[movieKey].name} 
+				users={users} 
+          		usersIDs={this.favoritedMovies[movieKey]} />
+        )}
       </div>
     );
   }
