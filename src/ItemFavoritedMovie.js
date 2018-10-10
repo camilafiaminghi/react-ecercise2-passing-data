@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ListUsers from './ListUsers';
 
 class ItemFavoritedMovie extends Component {
   constructor(props) {
@@ -9,6 +10,9 @@ class ItemFavoritedMovie extends Component {
     return (
 		<section>
       		<h2>{this.props.title}</h2>
+      		<ListUsers 
+      			users={this.props.users}
+  				usersIDs={this.props.usersIDs}/>
 		</section>	
     );
   }
